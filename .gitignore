@@ -1,3 +1,5 @@
 .gitignore
 bin/*
 gen/*
+CoolWeather/bin/*
+CoolWeather/bin/*
