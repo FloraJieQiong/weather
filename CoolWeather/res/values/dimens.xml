@@ -3,5 +3,13 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
-
+	
+    <dimen name="biz_plugin_weather_paddingTopAndBottom">5.0dip</dimen>
+    <dimen name="biz_weather_pager_height">165.0dip</dimen>
+    <dimen name="biz_plugin_weather_paddingLeftAndRight">10.0dip</dimen>
+    <dimen name="biz_weather_padding">10.0dip</dimen>
+    <dimen name="biz_plugin_weather_selectcity_indicator_textsize">12.0sp</dimen>
+    <dimen name="biz_plugin_weather_temperature_textsize">30.0sp</dimen>
+    <dimen name="biz_plugin_weather_climate_textsize">20.0sp</dimen>
+    
 </resources>

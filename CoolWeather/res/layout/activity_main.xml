@@ -1,16 +1,39 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.jieqiong.coolweather.MainActivity" >
+    android:layout_height="match_parent" >
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+    <LinearLayout
+        android:id="@+id/ll"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/title"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/biz_plugin_weather_paddingTopAndBottom" >
+
+        <include
+            android:id="@+id/weather_today"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            layout="@layout/biz_plugin_weather_item_first" />
+
+        <ImageView
+            android:id="@+id/divider"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="fitXY"
+            android:src="@drawable/base_list_divider_drawable"
+            android:visibility="gone" 
+            android:contentDescription="@string/pic"/>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewpager"
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/biz_weather_pager_height"
+            android:layout_marginTop="5.0dip"
+            android:overScrollMode="never"
+            android:paddingLeft="@dimen/biz_plugin_weather_paddingLeftAndRight"
+            android:paddingRight="@dimen/biz_plugin_weather_paddingLeftAndRight" />
+    </LinearLayout>
 
 </RelativeLayout>
