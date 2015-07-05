@@ -29,7 +29,8 @@
         android:textColor="@android:color/white"
         android:textSize="15.0sp" />
 
-   <!--  <TextView
+    <!--
+         <TextView
         android:id="@+id/humidity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -39,7 +40,8 @@
         android:singleLine="true"
         android:text="湿度"
         android:textColor="@android:color/white"
-        android:textSize="15.0sp" /> -->
+        android:textSize="15.0sp" />
+    -->
 
     <LinearLayout
         android:id="@+id/pm2_5_content"
@@ -82,12 +84,11 @@
                     android:textSize="@dimen/biz_plugin_weather_temperature_textsize" />
             </LinearLayout>
 
-            <ImageView
-                android:id="@+id/pm2_5_img"
+            <ProgressBar
+                android:id="@+id/pb_update"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5.0dip"
-                android:src="@drawable/biz_plugin_weather_0_50" />
+                android:layout_marginLeft="5.0dip" />
         </LinearLayout>
 
         <TextView
@@ -110,7 +111,7 @@
         android:layout_marginTop="5.0dip" >
 
         <ImageView
-            android:id="@+id/weather_img"
+            android:id="@+id/today_weather_img"
             android:layout_width="110dp"
             android:layout_height="110dp"
             android:layout_centerVertical="true"
@@ -122,7 +123,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="5.0dip"
-            android:layout_toRightOf="@id/weather_img"
+            android:layout_toRightOf="@id/today_weather_img"
             android:singleLine="true"
             android:text="今天星期一"
             android:textColor="@android:color/white"
@@ -134,7 +135,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/week_today"
             android:layout_marginLeft="5.0dip"
-            android:layout_toRightOf="@id/weather_img"
+            android:layout_toRightOf="@id/today_weather_img"
             android:singleLine="true"
             android:text="8-13℃"
             android:textColor="@android:color/white"
@@ -146,7 +147,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/temperature"
             android:layout_marginLeft="5.0dip"
-            android:layout_toRightOf="@id/weather_img"
+            android:layout_toRightOf="@id/today_weather_img"
             android:singleLine="true"
             android:text="晴"
             android:textColor="@android:color/white"
@@ -158,7 +159,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/climate"
             android:layout_marginLeft="5.0dip"
-            android:layout_toRightOf="@id/weather_img"
+            android:layout_toRightOf="@id/today_weather_img"
             android:singleLine="true"
             android:text="北风4-5级"
             android:textColor="@android:color/white"

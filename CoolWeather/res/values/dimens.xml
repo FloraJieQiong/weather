@@ -11,5 +11,9 @@
     <dimen name="biz_plugin_weather_selectcity_indicator_textsize">12.0sp</dimen>
     <dimen name="biz_plugin_weather_temperature_textsize">30.0sp</dimen>
     <dimen name="biz_plugin_weather_climate_textsize">20.0sp</dimen>
+    <dimen name="biz_plugin_weather_otherday_small_textsize">14.0sp</dimen>
+    <dimen name="biz_plugin_weather_otherday_image_size">60.0dip</dimen>
+    <dimen name="biz_plugin_weather_otherday_temperature_textsize">18.0sp</dimen>
+    <dimen name="biz_plugin_weather_otherday_climate_textsize">13.0sp</dimen>
     
 </resources>

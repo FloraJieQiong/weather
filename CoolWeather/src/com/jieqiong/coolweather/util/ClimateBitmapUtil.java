@@ -1,7 +1,5 @@
 package com.jieqiong.coolweather.util;
 
-import android.media.audiofx.Equalizer;
-
 import com.jieqiong.coolweather.R;
 
 public class ClimateBitmapUtil {
