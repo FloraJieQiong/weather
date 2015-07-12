@@ -34,7 +34,7 @@ public class WeatherUtil {
 				Gson localGson = new Gson();
 				localWeather = (Weather) localGson.fromJson(str, Weather.class);
 				LogUtil.i(TAG, localWeather.toString());
-				Constants.setWeather(localWeather);
+//				Constants.setWeather(localWeather);
 				if (sp == null)
 					sp = MyApplication.getInstance().getSharedPreferences(
 							"weather", 0);
@@ -42,23 +42,20 @@ public class WeatherUtil {
 				localEditor
 						.putString("weather", localGson.toJson(localWeather));
 				localEditor.commit();
-				Constants.dataReady = true;
+//				Constants.dataReady = true;
 				LogUtil.i(TAG, "getWeather2");
 			}
-			return localWeather;
+//			return localWeather;
 		} catch (MalformedURLException localMalformedURLException) {
-			while (true)
 				localMalformedURLException.printStackTrace();
 		} catch (IOException localIOException) {
-			while (true)
 				localIOException.printStackTrace();
 		} catch (JsonSyntaxException localJsonSyntaxException) {
-			while (true)
 				getWeatherFromSp(MyApplication.getInstance());
 		} catch (Exception localException) {
-			while (true)
 				localException.printStackTrace();
 		}
+		return localWeather;
 	}
 
 	public static void getWeatherFromSp(Context paramContext) {

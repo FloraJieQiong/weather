@@ -15,5 +15,6 @@
     <dimen name="biz_plugin_weather_otherday_image_size">60.0dip</dimen>
     <dimen name="biz_plugin_weather_otherday_temperature_textsize">18.0sp</dimen>
     <dimen name="biz_plugin_weather_otherday_climate_textsize">13.0sp</dimen>
-    
+    <dimen name="picSize">40.0dip</dimen>
+    <dimen name="ChartHeight">280.0dip</dimen>
 </resources>

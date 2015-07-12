@@ -40,19 +40,35 @@
                 android:numColumns="4"
                 android:stretchMode="columnWidth" />
 
-            <!--
-                 <ImageView
-                android:layout_marginTop="10dp"
+            <View
                 android:layout_width="fill_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginTop="5.0dip"
+                android:background="@android:color/white" />
+
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/line_cross" />
-            -->
+                android:layout_marginLeft="15.0dip"
+                android:layout_marginTop="5.0dip"
+                android:lines="2"
+                android:text="趋势"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/biz_plugin_weather_otherday_small_textsize"
+                android:textStyle="bold" />
+
+            <com.jieqiong.coolweather.widget.Chart
+                android:id="@+id/chart"
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/ChartHeight"
+                android:focusable="false"
+                android:focusableInTouchMode="false" />
 
             <View
                 android:layout_width="fill_parent"
                 android:layout_height="0.5dp"
-                android:background="@android:color/white"
-                android:layout_marginTop="5.0dip" />
+                android:layout_marginTop="5.0dip"
+                android:background="@android:color/white" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -69,7 +85,12 @@
                 android:id="@+id/list_view"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="5dp" />
+                android:layout_gravity="bottom"
+                android:layout_marginBottom="10dp"
+                android:layout_marginRight="5dp"
+                android:transcriptMode="normal" />
+            
+            
         </LinearLayout>
     </ScrollView>
 

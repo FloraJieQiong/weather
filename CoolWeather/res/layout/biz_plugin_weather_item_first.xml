@@ -88,7 +88,8 @@
                 android:id="@+id/pb_update"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5.0dip" />
+                android:layout_marginLeft="5.0dip"
+                android:visibility="gone" />
         </LinearLayout>
 
         <TextView
@@ -99,7 +100,8 @@
             android:singleLine="true"
             android:text="N/A"
             android:textColor="@android:color/white"
-            android:textSize="@dimen/biz_plugin_weather_climate_textsize" />
+            android:textSize="@dimen/biz_plugin_weather_climate_textsize"
+            android:visibility="gone" />
     </LinearLayout>
 
     <RelativeLayout

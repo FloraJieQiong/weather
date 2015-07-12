@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.view.Display;
 
 import com.jieqiong.coolweather.util.inter.BitmapInter;
 
@@ -13,23 +15,25 @@ public class BitmapFromURL {
 	 * 
 	 * @param url
 	 */
-	public static void loadImagefromUrl(final String url, final BitmapInter bitmapInter) {
-		
+	public static void loadImagefromUrl(final String url,
+			final BitmapInter bitmapInter) throws MalformedURLException {
+
 		new Thread(new Runnable() {
-			
+
 			@Override
 			public void run() {
 				try {
 					URL murl = new URL(url);
-					bitmapInter.getBitmap(BitmapFactory.decodeStream(murl.openStream()));
+					bitmapInter.getBitmap(BitmapFactory.decodeStream(murl
+							.openStream()));
 				} catch (MalformedURLException e) {
 					e.printStackTrace();
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-				
+
 			}
 		}).start();
-		
+
 	}
 }
