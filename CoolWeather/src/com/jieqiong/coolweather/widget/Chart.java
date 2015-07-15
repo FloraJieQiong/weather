@@ -134,7 +134,7 @@ public class Chart extends SurfaceView implements SurfaceHolder.Callback {
 	    		}
 	    		dy = baseLine + (tempLow[j + 1] - tempLow[lowestIndex]) * spacePX;
 	    		LogUtil.v(TAG, "dy = "+ dy + " j = "+j);
-	    		paramCanvas.drawLine(x[j], cy, x[j + 1], dy, mLinePaint1);
+	    		paramCanvas.drawLine(x[j], cy, x[j + 1], dy, paramPaint2);
 	    	}
 	    	LogUtil.v(TAG, "drawLowTemp() cy + deltaY = "+(cy + deltaY)+" , j = "+j+" , x[j] = "+x[j]); 
 	    	paramCanvas.drawText(tempLow[j]+"°", x[j], cy + deltaY, mTextPaint);
