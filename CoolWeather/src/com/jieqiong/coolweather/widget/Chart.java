@@ -3,6 +3,7 @@ package com.jieqiong.coolweather.widget;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.R.integer;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -69,7 +70,7 @@ public class Chart extends SurfaceView implements SurfaceHolder.Callback {
 	  
 	  float lowestY = 0.0F;
 	  int lowestIndex = 0;
-	  private void drawHighTemp(float deltaY, int paramInt1, int paramInt2, Canvas paramCanvas, Paint paramPaint1, Paint paramPaint2, float paramFloat2, float tempHeighMin)
+	  private void drawHighTemp(float deltaY, int bottom, Canvas paramCanvas, Paint paramPaint1, Paint paramPaint2, float paramFloat2, float tempHeighMin)
 	  {//deltaY, 180, 23, localCanvas, localPaint1, localPaint2, 140.0F / (getMax(tempHeigh) - tempHeighMin), tempHeighMin
 	    setWidth(width);
 	    float f1 = 0.0F;
@@ -77,7 +78,7 @@ public class Chart extends SurfaceView implements SurfaceHolder.Callback {
 	    
 	    for (int j = 0;j < this.timeWeak.size() ; j++)
 	    {
-	        float f2 = paramInt1 + paramFloat2 * (tempHeigh[j] - tempHeighMin);
+	        float f2 = bottom + paramFloat2 * (tempHeigh[j] - tempHeighMin);
 	        if (f1 > f2){
 	          f1 = f2;
 	        }
@@ -85,38 +86,75 @@ public class Chart extends SurfaceView implements SurfaceHolder.Callback {
 	        	lowestY = f2;
 	        	lowestIndex = j;
 	        }
+	        LogUtil.v(TAG, "lowestY = "+lowestY+"lowestIndex = " +lowestIndex);
 	        paramCanvas.drawCircle(this.x[i], f2, this.radius, paramPaint1);
 	        
 	        if (i != -1 + tempHeigh.length)
 	        {
-	          float f3 = paramInt1 + paramFloat2 * (tempHeigh[(i + 1)] - tempHeighMin);
+	          float f3 = bottom + paramFloat2 * (tempHeigh[(i + 1)] - tempHeighMin);
 	          paramCanvas.drawLine(this.x[i], f2, this.x[(i + 1)], f3, paramPaint2);
 	        }
-	        LogUtil.d("WeatherChart", "drawHighTemp f2 - deltaY / 2.0F = "+(f2 - deltaY / 2.0F)+" , i = "+i+" x[i] = "+this.x[i]);
+	        LogUtil.v("WeatherChart", "drawHighTemp f2 - deltaY / 2.0F = "+(f2 - deltaY / 2.0F)+" , i = "+i+" x[i] = "+this.x[i]);
 	        paramCanvas.drawText(tempHeigh[i] + "°", this.x[i], f2 - deltaY / 2.0F, this.mTextPaint);
 	        paramCanvas.drawBitmap(this.topBmps[i], this.x[i] - this.topBmps[i].getWidth() / 2, f2 - deltaY - this.topBmps[i].getWidth(), null);
 	        i++;
 	        
 	      
-	      paramCanvas.drawText((String)this.timeWeak.get(j)+" "+timeDate.get(j), this.x[j], f1 + deltaY, this.mTimePaint);
+	      paramCanvas.drawText((String)this.timeWeak.get(j)/*+" "+timeDate.get(j)*/, this.x[j], f1 + deltaY / 2, this.mTimePaint);
 	    }
 	  }
 
-	  private void drawLowTemp(float deltaY, Canvas paramCanvas, Paint paramPaint1, Paint paramPaint2, float spacePX, float tempMin,int bottom)
+	  private void drawLowTemp(float deltaY, Canvas paramCanvas, Paint paramPaint1, Paint paramPaint2, float spacePX,/* float tempMin,*/int bottom)
 	  {//deltaY, localCanvas, localPaint1, localPaint2, 140.0F / (getMax(tempHeigh) - tempHeighMin
-		  LogUtil.d("WeatherChart","deltaY = "+deltaY+" , spacePX = "+spacePX+" , tempMin = "+tempMin+" , bottom = "+bottom);
+		  LogUtil.v("WeatherChart","drawLowTemp() deltaY = "+deltaY+" , spacePX = "+spacePX+" , bottom = "+bottom);
 		  //deltaY = 34.09424 , paramFloat2 = -11.666667 , paramFloat3 = 20.0 , paramInt1 = 180
 	    setWidth(width);
+	    
+	    float baseLine = lowestY + 80;
+	    float cy = 0.0F;
+	    float dy = 0.0F;
 	    float highestY = 0.0F;
-	    float f2 = 0.0F;
+	    
+	    
+	    for(int j = 0; j < tempLow.length; j++){
+	    	if(j != lowestIndex){
+	    		cy = baseLine + (tempLow[j] - tempLow[lowestIndex]) * spacePX;
+	    	}else {
+				cy = baseLine;
+			}
+	    	
+	    	if(highestY < cy){
+	    		highestY = cy;
+	    	}
+	    	
+	    	paramCanvas.drawCircle(x[j], cy, radius, mPointPaint);
+	    	if(j != tempLow.length - 1){
+	    		if(j == lowestIndex - 1){
+	    			dy = baseLine;
+	    		}
+	    		dy = baseLine + (tempLow[j + 1] - tempLow[lowestIndex]) * spacePX;
+	    		LogUtil.v(TAG, "dy = "+ dy + " j = "+j);
+	    		paramCanvas.drawLine(x[j], cy, x[j + 1], dy, mLinePaint1);
+	    	}
+	    	LogUtil.v(TAG, "drawLowTemp() cy + deltaY = "+(cy + deltaY)+" , j = "+j+" , x[j] = "+x[j]); 
+	    	paramCanvas.drawText(tempLow[j]+"°", x[j], cy + deltaY, mTextPaint);
+	    	paramCanvas.drawBitmap(lowBmps[j], x[j] - lowBmps[j].getWidth() /2, cy + deltaY *3 /2,null);
+	    }
+	    
+	    for(int i = 0; i < timeDate.size(); i++){
+	    	paramCanvas.drawText(timeDate.get(i), x[i], highestY + deltaY * 5 / 2 + lowBmps[i].getHeight(), mTimePaint);
+	    }
+	    
+//	    float highestY = 0.0F;
+//	    float f2 = 0.0F;
 //	    bottom = 195;
-	    f2 = bottom+ spacePX * (tempLow[lowestIndex] - tempMin);
+	    /*f2 = bottom+ spacePX * (tempLow[lowestIndex] - tempMin);
 	    float delta = f2 - lowestY - 70;
 	    for (int j = 0; j < this.timeDate.size(); j++)
 	    {
 	    	//int paramInt1 = 180;
 	        f2 = bottom+ spacePX * (tempLow[j] - tempMin);
-	        LogUtil.d("WeatherChart", "f2 = "+f2);
+	        LogUtil.v("WeatherChart", "f2 = "+f2);
 	        if (highestY < f2){
 	        	highestY = f2;
 	        }
@@ -125,16 +163,16 @@ public class Chart extends SurfaceView implements SurfaceHolder.Callback {
 	        if (j != -1 + tempLow.length)
 	        {
 	          float f3 = bottom + spacePX * (tempLow[(j + 1)] - tempMin) - delta;
-	          LogUtil.d("WeatherChart", "f3 = "+f3);
+	          LogUtil.v("WeatherChart", "f3 = "+f3);
 	          paramCanvas.drawLine(this.x[j], f2, this.x[(j + 1)], f3, paramPaint2);
 	        }
-	        LogUtil.d("WeatherChart", "drawLowTemp f2 + deltaY = "+(f2 + deltaY)+" , i = "+j+" x[i] = "+this.x[j]);
+	        LogUtil.v("WeatherChart", "drawLowTemp f2 + deltaY = "+(f2 + deltaY)+" , i = "+j+" x[i] = "+this.x[j]);
 	        
 	        paramCanvas.drawText(tempLow[j] + "°", this.x[j], f2 + deltaY, this.mTextPaint);
 	        paramCanvas.drawBitmap(this.lowBmps[j], this.x[j] - this.lowBmps[j].getWidth() / 2, f2 + deltaY + this.lowBmps[j].getWidth() / 2, null);
 	      
 //	      paramCanvas.drawText((String)this.timeDate.get(j), this.x[j], highestY +  mTextPaint.getTextSize() *2+ this.lowBmps[j].getHeight() - delta, this.mTimePaint);
-	    }
+	    }*/
 	  }
 
 	private float getMax(float[] paramArrayOfFloat) {
@@ -142,7 +180,7 @@ public class Chart extends SurfaceView implements SurfaceHolder.Callback {
 		for (int i = 1;; i++) {
 			if (i >= paramArrayOfFloat.length)
 				return f;
-			if (f > paramArrayOfFloat[i])
+			if (f < paramArrayOfFloat[i])
 				f = paramArrayOfFloat[i];
 		}
 	}
@@ -151,7 +189,7 @@ public class Chart extends SurfaceView implements SurfaceHolder.Callback {
 		float f = paramArrayOfFloat[0];
 		for (int i = 1; i < paramArrayOfFloat.length; i++) {
 
-			if (f < paramArrayOfFloat[i])
+			if (f > paramArrayOfFloat[i])
 				f = paramArrayOfFloat[i];
 		}
 		return f;
@@ -237,10 +275,11 @@ public class Chart extends SurfaceView implements SurfaceHolder.Callback {
 	    localPaint2.setStrokeWidth(2.0F);
 	    localPaint2.setStyle(Paint.Style.FILL);
 	    
-	    float tempHeighMin = getMin(tempHeigh);
-	    drawHighTemp(deltaY, 180, 23, localCanvas, localPaint1, localPaint2, 140.0F / (getMax(tempHeigh) - tempHeighMin), tempHeighMin);
+	    float tempHeighMax = getMax(tempHeigh);
+	    float spacePX = 300.0F / (getMin(tempLow) - tempHeighMax);
+	    drawHighTemp(deltaY, 120, localCanvas, localPaint1, localPaint2, spacePX, tempHeighMax);
 	    
-	    drawLowTemp(deltaY, localCanvas, localPaint1, localPaint2, 140.0F / (getMax(tempHeigh) - tempHeighMin), tempHeighMin, 195);
+	    drawLowTemp(deltaY, localCanvas, localPaint1, localPaint2, spacePX, /*getMin(tempLow),*/ 195);
 	    
 	    this.sfh.unlockCanvasAndPost(localCanvas);
 	  }
@@ -279,7 +318,7 @@ public class Chart extends SurfaceView implements SurfaceHolder.Callback {
 		if (tempHeigh == null || tempLow == null) {
 			return;
 		}
-		LogUtil.d(TAG, "tempHeigh = " + tempHeigh + ", tempLow = " + tempLow);
+		LogUtil.v(TAG, "tempHeigh = " + tempHeigh + ", tempLow = " + tempLow);
 		for (int i = 0; i < tempHeigh.size(); i++) {
 			this.tempHeigh[i] = tempHeigh.get(i);
 			this.tempLow[i] = tempLow.get(i);
@@ -306,12 +345,12 @@ public class Chart extends SurfaceView implements SurfaceHolder.Callback {
 	@Override
 	public void surfaceChanged(SurfaceHolder paramSurfaceHolder, int paramInt1,
 			int paramInt2, int paramInt3) {
-		LogUtil.i("系统信息", "surfaceChanged");
+		LogUtil.v("系统信息", "surfaceChanged");
 	}
 
 	@Override
 	public void surfaceCreated(SurfaceHolder holder) {
-		LogUtil.i("系统消息", "surfaceCreated");
+		LogUtil.v("系统消息", "surfaceCreated");
 		this.isRunning = true;
 		this.currentX = 0;
 		clearCanvas();
@@ -324,7 +363,7 @@ public class Chart extends SurfaceView implements SurfaceHolder.Callback {
 
 	@Override
 	public void surfaceDestroyed(SurfaceHolder paramSurfaceHolder) {
-		LogUtil.i("系统信息", "surfaceDestroyed");
+		LogUtil.v("系统信息", "surfaceDestroyed");
 		this.isRunning = false;
 	}
 }

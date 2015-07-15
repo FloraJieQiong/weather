@@ -15,7 +15,7 @@ public class LogUtil {
 	public static final int ERROR = 5;
 	public static final int NOTHING = 6;
 	
-	public static final int LEVEL = ERROR;
+	public static final int LEVEL = WARN;
 	
 	/**
 	 * Send a {@link #VERBOSE} log message.
